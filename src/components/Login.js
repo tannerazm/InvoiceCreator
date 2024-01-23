@@ -3,10 +3,19 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loginPerson } from "../api/user";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = ({ seePassword, setSeePassword, password, setPassword, username, setUsername, isLoggedIn, setIsLoggedIn }) => {
-    const navigate = useNavigate();
-  
-    async function handleSubmit(event) {
+const Login = ({
+  seePassword,
+  setSeePassword,
+  password,
+  setPassword,
+  username,
+  setUsername,
+  isLoggedIn,
+  setIsLoggedIn,
+}) => {
+  const navigate = useNavigate();
+
+  async function handleSubmit(event) {
     event.preventDefault();
     try {
       const loggedInUser = await loginPerson(username, password);
@@ -26,46 +35,65 @@ const Login = ({ seePassword, setSeePassword, password, setPassword, username, s
       {isLoggedIn ? (
         <div>Logged In</div>
       ) : (
-        <div className="flex flex-col justify-between">
-          <form onSubmit={handleSubmit}>
-            <label className="block">
-              <span>Username</span>
+        <div className="flex items-center justify-center h-screen bg-gray-100">
+          <form
+            onSubmit={handleSubmit}
+            className="p-6 bg-white rounded shadow-md w-96"
+          >
+            <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Username
+              </label>
               <input
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
                 value={username}
-                className="w-full"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
-            </label>
-            <label className="block relative w-full">
-              <span>Password</span>
-              <div className="flex flex-row text-center">
-                <input
-                  type={seePassword ? "text" : "password"}
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password}
-                  className="w-full pr-12"
-                />
+            </div>
+
+            <div className="mb-6 relative">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Password
+              </label>
+              <input
+                type={seePassword ? "text" : "password"}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <div className="absolute pt-7 inset-y-0 right-0 flex items-center px-3">
                 {seePassword ? (
                   <FaEyeSlash
-                    className="text-center hover:cursor-pointer"
+                    className="hover:cursor-pointer"
                     onClick={() => setSeePassword(!seePassword)}
                   />
                 ) : (
                   <FaEye
-                    className="text-center hover:cursor-pointer"
+                    className="hover:cursor-pointer"
                     onClick={() => setSeePassword(!seePassword)}
                   />
                 )}
               </div>
-            </label>
-            <button type="submit">Login</button>
-            <div>
-              Not registered? Click{" "}
-              <Link to="/register" className="underline">
-                here
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Login
+            </button>
+
+            <div className="mt-4 text-center">
+              Not registered?{" "}
+              <Link
+                to="/register"
+                className="text-blue-500 hover:text-blue-800 underline"
+              >
+                Sign up
               </Link>
-              .
             </div>
           </form>
         </div>

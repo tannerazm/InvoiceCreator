@@ -7,7 +7,7 @@ const Header = ({isLoggedIn}) => {
     <div>
       <div className='bg-green-500 flex flex-row'>
         <div className='w-1/6 h-full'>
-          <Link to="/" className={linkClass}>OakIt</Link>
+          <Link to="/" className={linkClass}>Oak</Link>
         </div>
         <div className='w-5/6 flex flex-row h-full'>
           <Link to='/create_invoice' className={linkClass}>
